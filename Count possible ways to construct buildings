@@ -1,0 +1,28 @@
+class Solution
+{
+    int mod = (int) (1e9 + 7);
+    Integer[] dp;
+    public int TotalWays(int N)
+    {
+        // Code here
+        dp = new Integer[N+1];
+       
+        int one_side = solve(N, 0);
+        return (one_side % mod * one_side % mod) % mod;
+    }
+    
+    public int solve(int N, int index){
+        if(index >= N){
+            return 1;
+        }
+        
+        if(dp[index] != null){
+            return dp[index];
+        }
+        
+        long building = solve(N, index + 2) % mod;
+        long space = solve(N, index + 1) % mod;
+        return dp[index] = (int)((building + space)% mod); 
+    }
+    
+}
